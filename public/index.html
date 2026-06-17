@@ -46,8 +46,12 @@
         <label for="ttlSelect" class="muted">Files in this room expire after</label>
         <select id="ttlSelect"></select>
         <label class="filepick">
-          <input id="fileInput" type="file" accept="image/*,*/*" multiple hidden />
-          <span class="primary big block">＋ Add photos / files</span>
+          <input id="fileInputMedia" type="file" accept="image/*,video/*" multiple hidden />
+          <span class="primary big block">＋ Add photos / videos</span>
+        </label>
+        <label class="filepick">
+          <input id="fileInputAny" type="file" multiple hidden />
+          <span class="ghost big block">＋ Add any file (apk, docs, zip…)</span>
         </label>
         <progress id="uploadProgress" value="0" max="100" hidden></progress>
         <p id="uploadStatus" class="muted"></p>

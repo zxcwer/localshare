@@ -58,6 +58,20 @@ function renderRoom(room, isCreator) {
   renderFiles(room.files || []);
 }
 
+function fileIcon(f) {
+  const m = (f.mimeType || '').toLowerCase();
+  const ext = (f.name.split('.').pop() || '').toLowerCase();
+  if (m.startsWith('video/')) return '🎞️';
+  if (m.startsWith('audio/')) return '🎵';
+  if (ext === 'apk') return '📱';
+  if (['zip', 'rar', '7z', 'gz', 'tar'].includes(ext)) return '🗜️';
+  if (['xls', 'xlsx', 'csv', 'numbers'].includes(ext)) return '📊';
+  if (['doc', 'docx', 'pages', 'txt', 'rtf'].includes(ext)) return '📝';
+  if (['ppt', 'pptx', 'key'].includes(ext)) return '📽️';
+  if (ext === 'pdf') return '📕';
+  return '📄';
+}
+
 function renderFiles(files) {
   const list = $('fileList');
   list.innerHTML = '';
@@ -69,7 +83,7 @@ function renderFiles(files) {
     const dlUrl = `/api/rooms/${state.roomId}/files/${f.id}`;
     const thumb = isImg
       ? `<img class="thumb" src="${dlUrl}" alt="" loading="lazy" />`
-      : `<div class="thumb">📄</div>`;
+      : `<div class="thumb">${fileIcon(f)}</div>`;
     li.innerHTML = `
       ${thumb}
       <div class="info">
@@ -185,10 +199,12 @@ $('accessForm').addEventListener('submit', async (e) => {
   }
 });
 
-$('fileInput').addEventListener('change', (e) => {
+function onPick(e) {
   if (e.target.files.length) uploadFiles(e.target.files);
   e.target.value = '';
-});
+}
+$('fileInputMedia').addEventListener('change', onPick);
+$('fileInputAny').addEventListener('change', onPick);
 
 $('fileList').addEventListener('click', async (e) => {
   const btn = e.target.closest('button.del');
