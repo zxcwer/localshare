@@ -1,0 +1,21 @@
+services:
+  localshare:
+    build: .
+    image: localshare:latest
+    container_name: localshare
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # Override any setting from src/config.js here.
+      MAX_FILE_MB: "500"
+      MAX_ROOM_MB: "4096"
+      GLOBAL_QUOTA_MB: "20480"
+      ROOM_TTL_HOURS: "24"
+      # Set a secret to harden PIN hashing.
+      # PIN_SALT: "change-me"
+    volumes:
+      - localshare-data:/data
+
+volumes:
+  localshare-data:
