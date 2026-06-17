@@ -50,9 +50,9 @@ variables:
 | `PORT`                  | `8080`  | HTTP port                                 |
 | `HOST`                  | `0.0.0.0` | Bind address                            |
 | `DATA_DIR`              | `./data`| Where the DB + uploads live               |
-| `MAX_FILE_MB`           | `25`    | Max size per file                         |
-| `MAX_ROOM_MB`           | `200`   | Max total size per room                   |
-| `GLOBAL_QUOTA_MB`       | `2000`  | Max total storage across all rooms        |
+| `MAX_FILE_MB`           | `500`   | Max size per file                         |
+| `MAX_ROOM_MB`           | `4096`  | Max total size per room                   |
+| `GLOBAL_QUOTA_MB`       | `20480` | Max total storage across all rooms        |
 | `ROOM_TTL_HOURS`        | `24`    | How long a room lives                     |
 | `FILE_TTL_CHOICES`      | `1,24,168` | Per-file expiry options (hours) in the UI |
 | `PIN_DIGITS`            | `6`     | PIN length                                |

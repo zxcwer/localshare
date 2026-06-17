@@ -21,9 +21,12 @@ export const config = {
   },
 
   // Size limits (mega-bytes). Uploads beyond these are rejected.
-  maxFileMb: num(process.env.MAX_FILE_MB, 25),
-  maxRoomMb: num(process.env.MAX_ROOM_MB, 200),
-  globalQuotaMb: num(process.env.GLOBAL_QUOTA_MB, 2000),
+  // Note: maxRoomMb and globalQuotaMb must each be >= maxFileMb, otherwise a
+  // single large file is rejected by the room/global quota even if it is under
+  // the per-file limit.
+  maxFileMb: num(process.env.MAX_FILE_MB, 500),
+  maxRoomMb: num(process.env.MAX_ROOM_MB, 4096),
+  globalQuotaMb: num(process.env.GLOBAL_QUOTA_MB, 20480),
 
   // How long a room stays alive before it (and everything in it) is removed.
   roomTtlHours: num(process.env.ROOM_TTL_HOURS, 24),
