@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>localshare</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>📤 localshare</h1>
+    <p class="tagline">Send files across your network with a PIN — no cables, no cloud.</p>
+  </header>
+
+  <main>
+    <!-- Landing: pick a role -->
+    <section id="home" class="card">
+      <button id="btnCreate" class="primary big">Create a room (send files)</button>
+      <div class="divider"><span>or</span></div>
+      <form id="accessForm" class="access">
+        <label for="pinInput">Enter a room PIN to receive files</label>
+        <div class="pin-row">
+          <input id="pinInput" inputmode="numeric" autocomplete="one-time-code"
+                 pattern="[0-9]*" placeholder="123456" />
+          <button type="submit" class="primary">Open</button>
+        </div>
+        <p id="accessError" class="error" hidden></p>
+      </form>
+    </section>
+
+    <!-- Active room -->
+    <section id="room" class="card" hidden>
+      <div class="room-head">
+        <div>
+          <div class="muted">Room PIN</div>
+          <div id="roomPin" class="pin-display">––––––</div>
+        </div>
+        <div class="room-meta">
+          <div id="roomExpiry" class="muted"></div>
+          <div id="roomUsage" class="muted"></div>
+        </div>
+      </div>
+
+      <div id="uploadArea" class="upload-area" hidden>
+        <label for="ttlSelect" class="muted">Files in this room expire after</label>
+        <select id="ttlSelect"></select>
+        <label class="filepick">
+          <input id="fileInput" type="file" accept="image/*,*/*" multiple hidden />
+          <span class="primary big block">＋ Add photos / files</span>
+        </label>
+        <progress id="uploadProgress" value="0" max="100" hidden></progress>
+        <p id="uploadStatus" class="muted"></p>
+      </div>
+
+      <div class="list-head">
+        <h2>Files</h2>
+        <div class="list-actions">
+          <button id="btnRefresh" class="ghost">Refresh</button>
+          <a id="btnZip" class="ghost" href="#">Download all (.zip)</a>
+        </div>
+      </div>
+      <ul id="fileList" class="files"></ul>
+      <p id="emptyHint" class="muted">No files yet.</p>
+
+      <button id="btnLeave" class="ghost leave">← Back</button>
+    </section>
+  </main>
+
+  <footer>
+    <span id="serverHint" class="muted"></span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
