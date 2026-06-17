@@ -47,13 +47,15 @@ function renderRoom(room, isCreator) {
 
   show($('home'), false);
   show($('room'), true);
-  show($('uploadArea'), isCreator);
+  // Anyone who is in the room (creator or someone who entered the PIN) can
+  // both upload and download.
+  show($('uploadArea'), true);
 
   $('roomExpiry').textContent = `Room expires ${fmtWhen(room.expiresAt)}`;
   if (typeof room.usedBytes === 'number' && state.limits.maxRoomMb) {
     $('roomUsage').textContent = `${fmtBytes(room.usedBytes)} / ${state.limits.maxRoomMb} MB used`;
   }
-  if (isCreator) fillTtlSelect();
+  fillTtlSelect();
   $('btnZip').href = `/api/rooms/${room.roomId}/zip`;
   renderFiles(room.files || []);
 }
