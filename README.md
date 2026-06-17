@@ -40,6 +40,27 @@ Open that URL in a browser on **both** devices. Best run on an always-on device
 > Tip: give the host a static/reserved IP in your router so the URL never
 > changes.
 
+## Run with Docker
+
+```bash
+docker compose up -d --build
+```
+
+This builds the image, starts the server on port `8080`, and stores the
+SQLite database + uploads in a named volume (`localshare-data`) so they
+survive container restarts. Adjust limits via the `environment:` block in
+`docker-compose.yml`.
+
+Or with plain Docker:
+
+```bash
+docker build -t localshare .
+docker run -d --name localshare -p 8080:8080 \
+  -v localshare-data:/data localshare
+```
+
+Then open the host's LAN URL (e.g. `http://192.168.1.42:8080`) on both devices.
+
 ## Configuration
 
 All settings have sensible defaults and can be overridden with environment
