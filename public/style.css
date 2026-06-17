@@ -89,6 +89,26 @@ button, .primary, .ghost {
   width: 100%; margin: 8px 0 14px; padding: 10px; border-radius: 10px;
   background: var(--card-2); color: var(--text); border: 1px solid var(--card-2);
 }
+.dropzone {
+  border: 2px dashed var(--card-2);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.dropzone.dragover {
+  border-color: var(--accent);
+  background: rgba(56, 189, 248, 0.08);
+}
+.drop-hint {
+  text-align: center;
+  color: var(--muted);
+  margin: 4px 0 12px;
+}
+/* On touch devices drag-and-drop isn't available; hide the hint there. */
+@media (hover: none) {
+  .drop-hint { display: none; }
+  .dropzone { border: none; padding: 0; }
+}
 .filepick { display: block; }
 #uploadProgress { width: 100%; margin-top: 12px; height: 8px; }
 
