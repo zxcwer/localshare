@@ -208,6 +208,33 @@ function onPick(e) {
 $('fileInputMedia').addEventListener('change', onPick);
 $('fileInputAny').addEventListener('change', onPick);
 
+// Drag & drop (desktop). Prevent the browser from navigating away when a file
+// is dropped, and highlight the zone while dragging over it.
+const dropZone = $('dropZone');
+['dragenter', 'dragover'].forEach((ev) =>
+  dropZone.addEventListener(ev, (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  })
+);
+['dragleave', 'drop'].forEach((ev) =>
+  dropZone.addEventListener(ev, (e) => {
+    e.preventDefault();
+    if (ev === 'dragleave' && dropZone.contains(e.relatedTarget)) return;
+    dropZone.classList.remove('dragover');
+  })
+);
+dropZone.addEventListener('drop', (e) => {
+  const files = e.dataTransfer?.files;
+  if (files && files.length) uploadFiles(files);
+});
+// Dropping anywhere else on the page shouldn't make the browser open the file.
+['dragover', 'drop'].forEach((ev) =>
+  window.addEventListener(ev, (e) => {
+    if (!dropZone.contains(e.target)) e.preventDefault();
+  })
+);
+
 $('fileList').addEventListener('click', async (e) => {
   const btn = e.target.closest('button.del');
   if (!btn) return;
